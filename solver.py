@@ -162,7 +162,7 @@ while num_gen > 0:
         gen_RDD = gen_RDD.union(intermed_RDD).reduceByKey(merge_data)
     gen_RDD.saveAsPickleFile("solver_tier_" + str(num_gen - 1))
     print("solved gen" + str(num_gen - 1));
-    solved_generations.insert(0, gen_RDD)
+    solved_generations.append(gen_RDD)
     intermed_RDD = gen_RDD.flatMap(flatmap_parents).reduceByKey(reduce_by_game_value) \
                             .map(determine_remoteness)
     num_gen -= 1
